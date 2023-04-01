@@ -16,7 +16,10 @@ You should use the `forRoot` static function to inject the configuration for the
 @Module({
     imports: [
         MailingModule.forRoot({
-            templateUrl: 'template.ejs',
+            templates: {
+                default: 'template/template.ejs', // If you don't pass a template name to generateMail
+                example: 'template/example.ejs',
+            },
             mailServerUrl: '<mail server url here>',
             apiKey: '<key here>',
         }),
@@ -26,7 +29,7 @@ You should use the `forRoot` static function to inject the configuration for the
 })
 ```
 ### Usage
-You can generate the e-mail HTML to be sent via `generateMail(data: unknown)`.
+You can generate the e-mail HTML to be sent via `generateMail(values: unknown, templateName?: string = 'default')`.
 You can pass in any object, it depends on what you have written inside the EJS file.
 Use the `sendMail(data: SendMail[])` function to send an email in the correct format, where SendMail:
 ```typescript
